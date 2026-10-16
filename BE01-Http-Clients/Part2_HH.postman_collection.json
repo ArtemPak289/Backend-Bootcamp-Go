@@ -1,0 +1,156 @@
+{
+  "info": {
+    "_postman_id": "c0a8ef7e-b205-446e-b3aa-7427358e44f6",
+    "name": "Part 2. Developer Tools (hh.ru)",
+    "description": "Collection for Part 2: HH.ru developer tools shards endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "hh_base_url",
+      "value": "https://hh.ru",
+      "type": "string"
+    },
+    {
+      "key": "vacancy_id",
+      "value": "138003606",
+      "type": "string"
+    },
+    {
+      "key": "employer_id",
+      "value": "1455",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Get Vacancy Contact Info",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Referer",
+            "value": "https://hh.ru/vacancy/{{vacancy_id}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{hh_base_url}}/shards/vacancy/contact_info?id={{vacancy_id}}&employer_id={{employer_id}}",
+          "host": [
+            "{{hh_base_url}}"
+          ],
+          "path": [
+            "shards",
+            "vacancy",
+            "contact_info"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "{{vacancy_id}}"
+            },
+            {
+              "key": "employer_id",
+              "value": "{{employer_id}}"
+            }
+          ]
+        },
+        "description": "Получить контакты вакансии через внутренний endpoint https://hh.ru/shards/vacancy/contact_info"
+      }
+    },
+    {
+      "name": "2. Get Vacancy Phone Number",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Referer",
+            "value": "https://hh.ru/vacancy/{{vacancy_id}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{hh_base_url}}/shards/vacancy/phone?id={{vacancy_id}}&index=0",
+          "host": [
+            "{{hh_base_url}}"
+          ],
+          "path": [
+            "shards",
+            "vacancy",
+            "phone"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "{{vacancy_id}}"
+            },
+            {
+              "key": "index",
+              "value": "0"
+            }
+          ]
+        },
+        "description": "Получить телефонный номер вакансии через https://hh.ru/shards/vacancy/phone"
+      }
+    },
+    {
+      "name": "3. Register Show Contacts Attempt",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "User-Agent",
+            "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Referer",
+            "value": "https://hh.ru/vacancy/{{vacancy_id}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"vacancyId\": {{vacancy_id}}}"
+        },
+        "url": {
+          "raw": "{{hh_base_url}}/shards/vacancy/register_show_contacts_attempt",
+          "host": [
+            "{{hh_base_url}}"
+          ],
+          "path": [
+            "shards",
+            "vacancy",
+            "register_show_contacts_attempt"
+          ]
+        },
+        "description": "Регистрация попытки просмотра контактов https://hh.ru/shards/vacancy/register_show_contacts_attempt"
+      }
+    }
+  ]
+}

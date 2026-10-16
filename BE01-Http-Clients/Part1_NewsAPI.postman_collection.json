@@ -1,0 +1,172 @@
+{
+  "info": {
+    "_postman_id": "a20e4284-cb94-40b9-a554-4117a82225ce",
+    "name": "Part 1. News API",
+    "description": "Collection for Part 1: News API requests with Bearer token authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{news_api_key}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "news_api_key",
+      "value": "YOUR_NEWS_API_KEY",
+      "type": "string"
+    },
+    {
+      "key": "base_url",
+      "value": "https://newsapi.org",
+      "type": "string"
+    },
+    {
+      "key": "from_date",
+      "value": "2026-09-20",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Get all news about Linux",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/v2/everything?q=linux",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "everything"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "linux",
+              "description": "Keyword search"
+            }
+          ]
+        },
+        "description": "1. Необходимо получить все новости по теме linux."
+      }
+    },
+    {
+      "name": "2. Get all news about Разработка in Russian (last 15 days)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const d = new Date();",
+              "d.setDate(d.getDate() - 15);",
+              "const fromDate = d.toISOString().split(\"T\")[0];",
+              "pm.variables.set(\"from_date\", fromDate);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/v2/everything?q=Разработка&language=ru&from={{from_date}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "everything"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "Разработка"
+            },
+            {
+              "key": "language",
+              "value": "ru"
+            },
+            {
+              "key": "from",
+              "value": "{{from_date}}"
+            }
+          ]
+        },
+        "description": "2. Получить все новости по теме «Разработка» на русском языке за последние 15 дней."
+      }
+    },
+    {
+      "name": "3. Get Linux news in Russian (page 3, 10 items)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/v2/everything?q=linux&language=ru&pageSize=10&page=3",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "everything"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "linux"
+            },
+            {
+              "key": "language",
+              "value": "ru"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            },
+            {
+              "key": "page",
+              "value": "3"
+            }
+          ]
+        },
+        "description": "3. Получить все новости по теме linux на русском языке на 3 странице, на каждой из которых по 10 новостей."
+      }
+    },
+    {
+      "name": "4. Get Science top headlines for Russia",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/v2/top-headlines?country=ru&category=science",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "top-headlines"
+          ],
+          "query": [
+            {
+              "key": "country",
+              "value": "ru"
+            },
+            {
+              "key": "category",
+              "value": "science"
+            }
+          ]
+        },
+        "description": "4. Получить все заголовки новостей для страны Россия по категории «наука» (science)."
+      }
+    }
+  ]
+}

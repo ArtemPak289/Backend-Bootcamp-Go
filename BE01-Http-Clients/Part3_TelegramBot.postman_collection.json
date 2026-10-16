@@ -1,0 +1,222 @@
+{
+  "info": {
+    "_postman_id": "cd1b014d-b15e-4dfa-8b30-3d1ad90b0b20",
+    "name": "Part 3. Telegram Bot",
+    "description": "Collection for Part 3: Telegram Bot API methods (at least 7 requests).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "bot_token",
+      "value": "YOUR_TELEGRAM_BOT_TOKEN",
+      "type": "string"
+    },
+    {
+      "key": "chat_id",
+      "value": "YOUR_CHAT_ID",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "YOUR_USER_ID",
+      "type": "string"
+    },
+    {
+      "key": "telegram_api_url",
+      "value": "https://api.telegram.org",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. getMe",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{telegram_api_url}}/bot{{bot_token}}/getMe",
+          "host": [
+            "{{telegram_api_url}}"
+          ],
+          "path": [
+            "bot{{bot_token}}",
+            "getMe"
+          ]
+        },
+        "description": "4. Получи информацию о боте (метод getMe)."
+      }
+    },
+    {
+      "name": "2. getUpdates",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{telegram_api_url}}/bot{{bot_token}}/getUpdates",
+          "host": [
+            "{{telegram_api_url}}"
+          ],
+          "path": [
+            "bot{{bot_token}}",
+            "getUpdates"
+          ]
+        },
+        "description": "6. Ищи информацию о себе в ответе на метод getUpdates! Сохрани свой user_id и chat_id."
+      }
+    },
+    {
+      "name": "3. sendMessage",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"chat_id\": \"{{chat_id}}\",\n  \"text\": \"Привет от телеграм-бота!\"\n}"
+        },
+        "url": {
+          "raw": "{{telegram_api_url}}/bot{{bot_token}}/sendMessage",
+          "host": [
+            "{{telegram_api_url}}"
+          ],
+          "path": [
+            "bot{{bot_token}}",
+            "sendMessage"
+          ]
+        },
+        "description": "7. Отправь себе сообщение от имени бота (sendMessage)."
+      }
+    },
+    {
+      "name": "4. sendPhoto (Valid Photo)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "chat_id",
+              "value": "{{chat_id}}",
+              "type": "text"
+            },
+            {
+              "key": "photo",
+              "src": "sample.jpg",
+              "type": "file",
+              "description": "Attach sample.jpg here"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{telegram_api_url}}/bot{{bot_token}}/sendPhoto",
+          "host": [
+            "{{telegram_api_url}}"
+          ],
+          "path": [
+            "bot{{bot_token}}",
+            "sendPhoto"
+          ]
+        },
+        "description": "8. Отправить фотографию себе от имени бота (sendPhoto через form-data)."
+      }
+    },
+    {
+      "name": "5. sendPhoto (with PDF - Expected Error)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "chat_id",
+              "value": "{{chat_id}}",
+              "type": "text"
+            },
+            {
+              "key": "photo",
+              "src": "sample.pdf",
+              "type": "file",
+              "description": "Attach sample.pdf here to test Telegram response"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{telegram_api_url}}/bot{{bot_token}}/sendPhoto",
+          "host": [
+            "{{telegram_api_url}}"
+          ],
+          "path": [
+            "bot{{bot_token}}",
+            "sendPhoto"
+          ]
+        },
+        "description": "9. В методе sendPhoto вместо фотографии прикрепить pdf-документ (ожидается ошибка 400 Bad Request: PHOTO_INVALID_DIMENSIONS или IMAGE_PROCESS_FAILED)."
+      }
+    },
+    {
+      "name": "6. sendPhoto (with DOCX - Expected Error)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "chat_id",
+              "value": "{{chat_id}}",
+              "type": "text"
+            },
+            {
+              "key": "photo",
+              "src": "sample.docx",
+              "type": "file",
+              "description": "Attach sample.docx here to test Telegram response"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{telegram_api_url}}/bot{{bot_token}}/sendPhoto",
+          "host": [
+            "{{telegram_api_url}}"
+          ],
+          "path": [
+            "bot{{bot_token}}",
+            "sendPhoto"
+          ]
+        },
+        "description": "10. В методе sendPhoto вместо фотографии прикрепить docx-документ (ожидается ошибка 400 Bad Request)."
+      }
+    },
+    {
+      "name": "7. getUserProfilePhotos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{telegram_api_url}}/bot{{bot_token}}/getUserProfilePhotos?user_id={{user_id}}",
+          "host": [
+            "{{telegram_api_url}}"
+          ],
+          "path": [
+            "bot{{bot_token}}",
+            "getUserProfilePhotos"
+          ],
+          "query": [
+            {
+              "key": "user_id",
+              "value": "{{user_id}}"
+            }
+          ]
+        },
+        "description": "11. Посмотрим, что бот может узнать о тебе: getUserProfilePhotos."
+      }
+    }
+  ]
+}

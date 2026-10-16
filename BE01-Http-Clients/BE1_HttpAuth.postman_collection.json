@@ -1,0 +1,524 @@
+{
+  "info": {
+    "_postman_id": "033178aa-5b05-4af8-aaef-3bae68f5b4d5",
+    "name": "BE1_HttpAuth",
+    "description": "Complete School 21 BE1_HttpAuth collection containing Part 1 (News API), Part 2 (Developer Tools hh.ru), and Part 3 (Telegram Bot).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "news_api_key",
+      "value": "YOUR_NEWS_API_KEY",
+      "type": "string"
+    },
+    {
+      "key": "bot_token",
+      "value": "YOUR_TELEGRAM_BOT_TOKEN",
+      "type": "string"
+    },
+    {
+      "key": "chat_id",
+      "value": "YOUR_CHAT_ID",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "YOUR_USER_ID",
+      "type": "string"
+    },
+    {
+      "key": "vacancy_id",
+      "value": "138003606",
+      "type": "string"
+    },
+    {
+      "key": "employer_id",
+      "value": "1455",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Part 1. News API",
+      "item": [
+        {
+          "name": "1. Get all news about Linux",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v2/everything?q=linux",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v2",
+                "everything"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "linux",
+                  "description": "Keyword search"
+                }
+              ]
+            },
+            "description": "1. Необходимо получить все новости по теме linux."
+          }
+        },
+        {
+          "name": "2. Get all news about Разработка in Russian (last 15 days)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const d = new Date();",
+                  "d.setDate(d.getDate() - 15);",
+                  "const fromDate = d.toISOString().split(\"T\")[0];",
+                  "pm.variables.set(\"from_date\", fromDate);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v2/everything?q=Разработка&language=ru&from={{from_date}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v2",
+                "everything"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "Разработка"
+                },
+                {
+                  "key": "language",
+                  "value": "ru"
+                },
+                {
+                  "key": "from",
+                  "value": "{{from_date}}"
+                }
+              ]
+            },
+            "description": "2. Получить все новости по теме «Разработка» на русском языке за последние 15 дней."
+          }
+        },
+        {
+          "name": "3. Get Linux news in Russian (page 3, 10 items)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v2/everything?q=linux&language=ru&pageSize=10&page=3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v2",
+                "everything"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "linux"
+                },
+                {
+                  "key": "language",
+                  "value": "ru"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                },
+                {
+                  "key": "page",
+                  "value": "3"
+                }
+              ]
+            },
+            "description": "3. Получить все новости по теме linux на русском языке на 3 странице, на каждой из которых по 10 новостей."
+          }
+        },
+        {
+          "name": "4. Get Science top headlines for Russia",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v2/top-headlines?country=ru&category=science",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v2",
+                "top-headlines"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "ru"
+                },
+                {
+                  "key": "category",
+                  "value": "science"
+                }
+              ]
+            },
+            "description": "4. Получить все заголовки новостей для страны Россия по категории «наука» (science)."
+          }
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{news_api_key}}",
+            "type": "string"
+          }
+        ]
+      },
+      "description": "Part 1 News API requests"
+    },
+    {
+      "name": "Part 2. Developer Tools (hh.ru)",
+      "item": [
+        {
+          "name": "1. Get Vacancy Contact Info",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Referer",
+                "value": "https://hh.ru/vacancy/{{vacancy_id}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{hh_base_url}}/shards/vacancy/contact_info?id={{vacancy_id}}&employer_id={{employer_id}}",
+              "host": [
+                "{{hh_base_url}}"
+              ],
+              "path": [
+                "shards",
+                "vacancy",
+                "contact_info"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{vacancy_id}}"
+                },
+                {
+                  "key": "employer_id",
+                  "value": "{{employer_id}}"
+                }
+              ]
+            },
+            "description": "Получить контакты вакансии через внутренний endpoint https://hh.ru/shards/vacancy/contact_info"
+          }
+        },
+        {
+          "name": "2. Get Vacancy Phone Number",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Referer",
+                "value": "https://hh.ru/vacancy/{{vacancy_id}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{hh_base_url}}/shards/vacancy/phone?id={{vacancy_id}}&index=0",
+              "host": [
+                "{{hh_base_url}}"
+              ],
+              "path": [
+                "shards",
+                "vacancy",
+                "phone"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{vacancy_id}}"
+                },
+                {
+                  "key": "index",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Получить телефонный номер вакансии через https://hh.ru/shards/vacancy/phone"
+          }
+        },
+        {
+          "name": "3. Register Show Contacts Attempt",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Referer",
+                "value": "https://hh.ru/vacancy/{{vacancy_id}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"vacancyId\": {{vacancy_id}}}"
+            },
+            "url": {
+              "raw": "{{hh_base_url}}/shards/vacancy/register_show_contacts_attempt",
+              "host": [
+                "{{hh_base_url}}"
+              ],
+              "path": [
+                "shards",
+                "vacancy",
+                "register_show_contacts_attempt"
+              ]
+            },
+            "description": "Регистрация попытки просмотра контактов https://hh.ru/shards/vacancy/register_show_contacts_attempt"
+          }
+        }
+      ],
+      "description": "Part 2 HH.ru internal shards requests"
+    },
+    {
+      "name": "Part 3. Telegram Bot",
+      "item": [
+        {
+          "name": "1. getMe",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{telegram_api_url}}/bot{{bot_token}}/getMe",
+              "host": [
+                "{{telegram_api_url}}"
+              ],
+              "path": [
+                "bot{{bot_token}}",
+                "getMe"
+              ]
+            },
+            "description": "4. Получи информацию о боте (метод getMe)."
+          }
+        },
+        {
+          "name": "2. getUpdates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{telegram_api_url}}/bot{{bot_token}}/getUpdates",
+              "host": [
+                "{{telegram_api_url}}"
+              ],
+              "path": [
+                "bot{{bot_token}}",
+                "getUpdates"
+              ]
+            },
+            "description": "6. Ищи информацию о себе в ответе на метод getUpdates! Сохрани свой user_id и chat_id."
+          }
+        },
+        {
+          "name": "3. sendMessage",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"chat_id\": \"{{chat_id}}\",\n  \"text\": \"Привет от телеграм-бота!\"\n}"
+            },
+            "url": {
+              "raw": "{{telegram_api_url}}/bot{{bot_token}}/sendMessage",
+              "host": [
+                "{{telegram_api_url}}"
+              ],
+              "path": [
+                "bot{{bot_token}}",
+                "sendMessage"
+              ]
+            },
+            "description": "7. Отправь себе сообщение от имени бота (sendMessage)."
+          }
+        },
+        {
+          "name": "4. sendPhoto (Valid Photo)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "chat_id",
+                  "value": "{{chat_id}}",
+                  "type": "text"
+                },
+                {
+                  "key": "photo",
+                  "src": "sample.jpg",
+                  "type": "file",
+                  "description": "Attach sample.jpg here"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{telegram_api_url}}/bot{{bot_token}}/sendPhoto",
+              "host": [
+                "{{telegram_api_url}}"
+              ],
+              "path": [
+                "bot{{bot_token}}",
+                "sendPhoto"
+              ]
+            },
+            "description": "8. Отправить фотографию себе от имени бота (sendPhoto через form-data)."
+          }
+        },
+        {
+          "name": "5. sendPhoto (with PDF - Expected Error)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "chat_id",
+                  "value": "{{chat_id}}",
+                  "type": "text"
+                },
+                {
+                  "key": "photo",
+                  "src": "sample.pdf",
+                  "type": "file",
+                  "description": "Attach sample.pdf here to test Telegram response"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{telegram_api_url}}/bot{{bot_token}}/sendPhoto",
+              "host": [
+                "{{telegram_api_url}}"
+              ],
+              "path": [
+                "bot{{bot_token}}",
+                "sendPhoto"
+              ]
+            },
+            "description": "9. В методе sendPhoto вместо фотографии прикрепить pdf-документ (ожидается ошибка 400 Bad Request: PHOTO_INVALID_DIMENSIONS или IMAGE_PROCESS_FAILED)."
+          }
+        },
+        {
+          "name": "6. sendPhoto (with DOCX - Expected Error)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "chat_id",
+                  "value": "{{chat_id}}",
+                  "type": "text"
+                },
+                {
+                  "key": "photo",
+                  "src": "sample.docx",
+                  "type": "file",
+                  "description": "Attach sample.docx here to test Telegram response"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{telegram_api_url}}/bot{{bot_token}}/sendPhoto",
+              "host": [
+                "{{telegram_api_url}}"
+              ],
+              "path": [
+                "bot{{bot_token}}",
+                "sendPhoto"
+              ]
+            },
+            "description": "10. В методе sendPhoto вместо фотографии прикрепить docx-документ (ожидается ошибка 400 Bad Request)."
+          }
+        },
+        {
+          "name": "7. getUserProfilePhotos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{telegram_api_url}}/bot{{bot_token}}/getUserProfilePhotos?user_id={{user_id}}",
+              "host": [
+                "{{telegram_api_url}}"
+              ],
+              "path": [
+                "bot{{bot_token}}",
+                "getUserProfilePhotos"
+              ],
+              "query": [
+                {
+                  "key": "user_id",
+                  "value": "{{user_id}}"
+                }
+              ]
+            },
+            "description": "11. Посмотрим, что бот может узнать о тебе: getUserProfilePhotos."
+          }
+        }
+      ],
+      "description": "Part 3 Telegram Bot requests (at least 7 requests)"
+    }
+  ]
+}

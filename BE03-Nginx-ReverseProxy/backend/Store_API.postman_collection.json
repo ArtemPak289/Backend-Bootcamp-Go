@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "c1f73b88-5182-4113-95c5-28b9a5286591",
+		"name": "Store API (BE2_APIFromSpec)",
+		"description": "Postman Collection for Appliance Store REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Swagger UI",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/swagger/index.html",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["swagger", "index.html"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "1. Add Client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"client_name\": \"John\",\n  \"client_surname\": \"Doe\",\n  \"birthday\": \"1995-04-12\",\n  \"gender\": \"male\",\n  \"address\": {\n    \"country\": \"USA\",\n    \"city\": \"New York\",\n    \"street\": \"Broadway 123\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "clients"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get All Clients (with pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients?limit=10&offset=0",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "clients"],
+							"query": [
+								{ "key": "limit", "value": "10" },
+								{ "key": "offset", "value": "0" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Search Clients by Name and Surname",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients/search?client_name=John&client_surname=Doe",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "clients", "search"],
+							"query": [
+								{ "key": "client_name", "value": "John" },
+								{ "key": "client_surname", "value": "Doe" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Change Client Address",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"country\": \"Germany\",\n  \"city\": \"Berlin\",\n  \"street\": \"Alexanderplatz 1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients/:id/address",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "clients", ":id", "address"],
+							"variable": [
+								{ "key": "id", "value": "CLIENT_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Delete Client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "clients", ":id"],
+							"variable": [
+								{ "key": "id", "value": "CLIENT_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "1. Add Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Smart Refrigerator X500\",\n  \"category\": \"Refrigerators\",\n  \"price\": 1299.99,\n  \"available_stock\": 15\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/products",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "products"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get All Available Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/products",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "products"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Product by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/products/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "products", ":id"],
+							"variable": [
+								{ "key": "id", "value": "PRODUCT_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Decrease Product Quantity",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/products/:id/decrease",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "products", ":id", "decrease"],
+							"variable": [
+								{ "key": "id", "value": "PRODUCT_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/products/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "products", ":id"],
+							"variable": [
+								{ "key": "id", "value": "PRODUCT_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Suppliers",
+			"item": [
+				{
+					"name": "1. Add Supplier",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Global Electronics Distribution\",\n  \"phone_number\": \"+1-800-555-0199\",\n  \"address\": {\n    \"country\": \"USA\",\n    \"city\": \"San Jose\",\n    \"street\": \"Silicon Valley Blvd 500\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/suppliers",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "suppliers"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get All Suppliers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/suppliers",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "suppliers"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Supplier by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/suppliers/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "suppliers", ":id"],
+							"variable": [
+								{ "key": "id", "value": "SUPPLIER_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Change Supplier Address",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"country\": \"USA\",\n  \"city\": \"Austin\",\n  \"street\": \"Tech Ridge 20\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/suppliers/:id/address",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "suppliers", ":id", "address"],
+							"variable": [
+								{ "key": "id", "value": "SUPPLIER_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Delete Supplier",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/suppliers/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "suppliers", ":id"],
+							"variable": [
+								{ "key": "id", "value": "SUPPLIER_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Images",
+			"item": [
+				{
+					"name": "1. Add Image (JSON base64)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": \"PRODUCT_UUID_HERE\",\n  \"image\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/images",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "images"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get Image of Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/products/:id/image",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "products", ":id", "image"],
+							"variable": [
+								{ "key": "id", "value": "PRODUCT_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Image by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/images/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "images", ":id"],
+							"variable": [
+								{ "key": "id", "value": "IMAGE_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Replace Image",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"image\": \"NEW_BASE64_OR_STRING_CONTENT_HERE\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/images/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "images", ":id"],
+							"variable": [
+								{ "key": "id", "value": "IMAGE_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Delete Image",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/images/:id",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "v1", "images", ":id"],
+							"variable": [
+								{ "key": "id", "value": "IMAGE_UUID_HERE" }
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

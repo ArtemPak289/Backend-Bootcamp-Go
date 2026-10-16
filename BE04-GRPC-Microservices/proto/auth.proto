@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "auth_service/proto;authpb";
+
+// AuthService provides authentication and user management RPCs.
+service AuthService {
+  // Creating a user from input data (email, first name, last name, phone number, password) returns a signed token.
+  rpc Register (RegisterRequest) returns (AuthResponse);
+
+  // Verifying the username/password pair (authenticating the user) returns the token.
+  rpc Login (LoginRequest) returns (AuthResponse);
+
+  // Changing the user password.
+  rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse);
+
+  // Password recovery method: Send password to user's email (stub outputs to console).
+  rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse);
+
+  // Validates JWT token and returns user claims if valid.
+  rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse);
+
+  // Retrieves user information by user ID or email.
+  rpc GetUser (GetUserRequest) returns (UserResponse);
+}
+
+message RegisterRequest {
+  string email = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string phone_number = 4;
+  string password = 5;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message AuthResponse {
+  string token = 1;
+  string user_id = 2;
+  string email = 3;
+  string first_name = 4;
+  string last_name = 5;
+  string phone_number = 6;
+}
+
+message ChangePasswordRequest {
+  string email = 1;
+  string old_password = 2;
+  string new_password = 3;
+}
+
+message ChangePasswordResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ResetPasswordRequest {
+  string email = 1;
+}
+
+message ResetPasswordResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message ValidateTokenResponse {
+  bool valid = 1;
+  string user_id = 2;
+  string email = 3;
+  string first_name = 4;
+  string last_name = 5;
+  string phone_number = 6;
+  string error_message = 7;
+}
+
+message GetUserRequest {
+  string user_id = 1;
+  string email = 2;
+}
+
+message UserResponse {
+  string user_id = 1;
+  string email = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string phone_number = 5;
+  string created_at = 6;
+}

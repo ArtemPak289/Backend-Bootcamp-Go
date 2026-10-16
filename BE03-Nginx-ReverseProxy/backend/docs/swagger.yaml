@@ -1,0 +1,940 @@
+basePath: /api/v1
+definitions:
+  dto.AddressDTO:
+    properties:
+      city:
+        example: New York
+        type: string
+      country:
+        example: USA
+        type: string
+      id:
+        example: a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d
+        type: string
+      street:
+        example: 5th Avenue, 10
+        type: string
+    type: object
+  dto.ClientAddressUpdateDTO:
+    properties:
+      address_id:
+        example: 22222222-2222-2222-2222-222222222222
+        type: string
+      city:
+        example: Berlin
+        type: string
+      country:
+        example: Germany
+        type: string
+      street:
+        example: Alexanderplatz 1
+        type: string
+    type: object
+  dto.ClientRequestDTO:
+    properties:
+      address:
+        $ref: '#/definitions/dto.AddressDTO'
+      address_id:
+        example: 22222222-2222-2222-2222-222222222222
+        type: string
+      birthday:
+        example: "1990-05-15"
+        type: string
+      client_name:
+        example: John
+        type: string
+      client_surname:
+        example: Doe
+        type: string
+      gender:
+        example: male
+        type: string
+      id:
+        example: 11111111-1111-1111-1111-111111111111
+        type: string
+      registration_date:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+    type: object
+  dto.ClientResponseDTO:
+    properties:
+      address:
+        $ref: '#/definitions/dto.AddressDTO'
+      address_id:
+        example: 22222222-2222-2222-2222-222222222222
+        type: string
+      birthday:
+        example: "1990-05-15"
+        type: string
+      client_name:
+        example: John
+        type: string
+      client_surname:
+        example: Doe
+        type: string
+      gender:
+        example: male
+        type: string
+      id:
+        example: 11111111-1111-1111-1111-111111111111
+        type: string
+      registration_date:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+    type: object
+  dto.ErrorResponse:
+    properties:
+      error:
+        example: validation failed or resource not found
+        type: string
+    type: object
+  dto.ImageReplaceDTO:
+    properties:
+      data:
+        example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==
+        type: string
+      image:
+        example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==
+        type: string
+    type: object
+  dto.ImageResponseDTO:
+    properties:
+      id:
+        example: 55555555-5555-5555-5555-555555555555
+        type: string
+      product_id:
+        example: 33333333-3333-3333-3333-333333333333
+        type: string
+      size:
+        example: 10240
+        type: integer
+    type: object
+  dto.ImageUploadJSONDTO:
+    properties:
+      image:
+        example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==
+        type: string
+      product_id:
+        example: 33333333-3333-3333-3333-333333333333
+        type: string
+    type: object
+  dto.MessageResponse:
+    properties:
+      message:
+        example: operation completed successfully
+        type: string
+    type: object
+  dto.ProductDecreaseStockDTO:
+    properties:
+      amount:
+        example: 5
+        type: integer
+      decrease_by:
+        example: 5
+        type: integer
+      quantity:
+        example: 5
+        type: integer
+    type: object
+  dto.ProductRequestDTO:
+    properties:
+      available_stock:
+        example: 50
+        type: integer
+      category:
+        example: Kitchen Appliances
+        type: string
+      id:
+        example: 33333333-3333-3333-3333-333333333333
+        type: string
+      image_id:
+        example: 55555555-5555-5555-5555-555555555555
+        type: string
+      last_update_date:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      name:
+        example: Microwave Oven Pro
+        type: string
+      price:
+        example: 299.99
+        type: number
+      supplier_id:
+        example: 44444444-4444-4444-4444-444444444444
+        type: string
+    type: object
+  dto.ProductResponseDTO:
+    properties:
+      available_stock:
+        example: 50
+        type: integer
+      category:
+        example: Kitchen Appliances
+        type: string
+      id:
+        example: 33333333-3333-3333-3333-333333333333
+        type: string
+      image_id:
+        example: 55555555-5555-5555-5555-555555555555
+        type: string
+      last_update_date:
+        example: "2024-01-01T00:00:00Z"
+        type: string
+      name:
+        example: Microwave Oven Pro
+        type: string
+      price:
+        example: 299.99
+        type: number
+      supplier_id:
+        example: 44444444-4444-4444-4444-444444444444
+        type: string
+    type: object
+  dto.SupplierAddressUpdateDTO:
+    properties:
+      address_id:
+        example: 22222222-2222-2222-2222-222222222222
+        type: string
+      city:
+        example: Chicago
+        type: string
+      country:
+        example: USA
+        type: string
+      street:
+        example: Michigan Ave, 45
+        type: string
+    type: object
+  dto.SupplierRequestDTO:
+    properties:
+      address:
+        $ref: '#/definitions/dto.AddressDTO'
+      address_id:
+        example: 22222222-2222-2222-2222-222222222222
+        type: string
+      id:
+        example: 44444444-4444-4444-4444-444444444444
+        type: string
+      name:
+        example: Appliance Master Ltd
+        type: string
+      phone_number:
+        example: +1-555-0199
+        type: string
+    type: object
+  dto.SupplierResponseDTO:
+    properties:
+      address:
+        $ref: '#/definitions/dto.AddressDTO'
+      address_id:
+        example: 22222222-2222-2222-2222-222222222222
+        type: string
+      id:
+        example: 44444444-4444-4444-4444-444444444444
+        type: string
+      name:
+        example: Appliance Master Ltd
+        type: string
+      phone_number:
+        example: +1-555-0199
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: School 21 Student
+    url: https://21-school.ru
+  description: RESTful API for Appliance Store with PostgreSQL database.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Appliance Store REST API
+  version: "1.0"
+paths:
+  /api/v1/clients:
+    get:
+      description: Retrieves all clients with optional limit and offset pagination.
+        Also filters by name if provided.
+      parameters:
+      - description: Maximum number of clients to return
+        in: query
+        name: limit
+        type: integer
+      - description: Number of clients to skip
+        in: query
+        name: offset
+        type: integer
+      - description: First name filter
+        in: query
+        name: client_name
+        type: string
+      - description: Last name filter
+        in: query
+        name: client_surname
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of clients (empty if none)
+          schema:
+            items:
+              $ref: '#/definitions/dto.ClientResponseDTO'
+            type: array
+        "400":
+          description: Invalid pagination parameters
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get all clients
+      tags:
+      - Clients
+    post:
+      consumes:
+      - application/json
+      description: Creates a new client in the database with address verification
+      parameters:
+      - description: Client data
+        in: body
+        name: client
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ClientRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.ClientResponseDTO'
+        "400":
+          description: Validation error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Add a new client
+      tags:
+      - Clients
+  /api/v1/clients/{id}:
+    delete:
+      description: Deletes a client by its unique identifier
+      parameters:
+      - description: Client ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Client successfully deleted
+          schema:
+            $ref: '#/definitions/dto.MessageResponse'
+        "400":
+          description: Invalid UUID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Client not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Delete a client
+      tags:
+      - Clients
+    get:
+      description: Retrieves a single client by its unique identifier
+      parameters:
+      - description: Client ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ClientResponseDTO'
+        "400":
+          description: Invalid UUID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Client not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get client by ID
+      tags:
+      - Clients
+  /api/v1/clients/{id}/address:
+    put:
+      consumes:
+      - application/json
+      description: Updates the address of an existing client
+      parameters:
+      - description: Client ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: New address information
+        in: body
+        name: address
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ClientAddressUpdateDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated client
+          schema:
+            $ref: '#/definitions/dto.ClientResponseDTO'
+        "400":
+          description: Validation error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Client not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Change client address
+      tags:
+      - Clients
+  /api/v1/clients/search:
+    get:
+      description: Searches clients by exact or case-insensitive first and last name
+      parameters:
+      - description: First name
+        in: query
+        name: client_name
+        required: true
+        type: string
+      - description: Last name
+        in: query
+        name: client_surname
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of clients (empty if none)
+          schema:
+            items:
+              $ref: '#/definitions/dto.ClientResponseDTO'
+            type: array
+        "400":
+          description: Missing parameters
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get clients by first and last name
+      tags:
+      - Clients
+  /api/v1/images:
+    post:
+      consumes:
+      - multipart/form-data
+      - application/json
+      - application/octet-stream
+      description: Uploads an image for a specific product. Supports multipart/form-data,
+        JSON with base64, or raw octet-stream bytes.
+      parameters:
+      - description: Product ID (UUID) if sending raw bytes
+        in: query
+        name: product_id
+        type: string
+      - description: Image binary file (if multipart)
+        in: formData
+        name: image
+        type: file
+      - description: Image in base64 (if JSON)
+        in: body
+        name: json
+        schema:
+          $ref: '#/definitions/dto.ImageUploadJSONDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Image uploaded successfully
+          schema:
+            $ref: '#/definitions/dto.ImageResponseDTO'
+        "400":
+          description: Validation error or invalid product ID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Add an image
+      tags:
+      - Images
+  /api/v1/images/{id}:
+    delete:
+      description: Deletes an image by image ID
+      parameters:
+      - description: Image ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Image deleted successfully
+          schema:
+            $ref: '#/definitions/dto.MessageResponse'
+        "400":
+          description: Invalid UUID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Image not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Delete an image
+      tags:
+      - Images
+    get:
+      description: Returns the byte array of an image by image ID. The file will be
+        automatically downloaded with application/octet-stream.
+      parameters:
+      - description: Image ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: Image byte array
+          schema:
+            type: file
+        "400":
+          description: Invalid UUID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Image not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get image by image ID
+      tags:
+      - Images
+    put:
+      consumes:
+      - application/json
+      - text/plain
+      - application/octet-stream
+      description: Replaces the byte array of an existing image by image ID
+      parameters:
+      - description: Image ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: New replacement data/string
+        in: body
+        name: body
+        schema:
+          $ref: '#/definitions/dto.ImageReplaceDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Image replaced successfully
+          schema:
+            $ref: '#/definitions/dto.ImageResponseDTO'
+        "400":
+          description: Invalid UUID or empty replacement data
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Image not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Replace image
+      tags:
+      - Images
+  /api/v1/products:
+    get:
+      description: Retrieves all products that have available stock > 0
+      parameters:
+      - description: Return all products including out-of-stock
+        in: query
+        name: all
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of products (empty if none)
+          schema:
+            items:
+              $ref: '#/definitions/dto.ProductResponseDTO'
+            type: array
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get all available products
+      tags:
+      - Products
+    post:
+      consumes:
+      - application/json
+      description: Creates a new appliance product
+      parameters:
+      - description: Product data
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ProductRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.ProductResponseDTO'
+        "400":
+          description: Validation error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Add a new product
+      tags:
+      - Products
+  /api/v1/products/{id}:
+    delete:
+      description: Deletes a product by its unique identifier
+      parameters:
+      - description: Product ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product successfully deleted
+          schema:
+            $ref: '#/definitions/dto.MessageResponse'
+        "400":
+          description: Invalid UUID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Delete a product
+      tags:
+      - Products
+    get:
+      description: Retrieves product details by ID
+      parameters:
+      - description: Product ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ProductResponseDTO'
+        "400":
+          description: Invalid UUID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get product by ID
+      tags:
+      - Products
+  /api/v1/products/{id}/decrease:
+    patch:
+      consumes:
+      - application/json
+      description: Decreases the stock count of a specific product by given amount
+      parameters:
+      - description: Product ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Decrease payload
+        in: body
+        name: input
+        schema:
+          $ref: '#/definitions/dto.ProductDecreaseStockDTO'
+      - description: Amount to decrease (if not in body)
+        in: query
+        name: amount
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated product
+          schema:
+            $ref: '#/definitions/dto.ProductResponseDTO'
+        "400":
+          description: Insufficient stock or invalid input
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Product not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Decrease product quantity
+      tags:
+      - Products
+  /api/v1/products/{id}/image:
+    get:
+      description: Returns the byte array of an image for a specific product ID. The
+        file will be automatically downloaded with application/octet-stream.
+      parameters:
+      - description: Product ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: Image byte array
+          schema:
+            type: file
+        "400":
+          description: Invalid UUID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Product or image not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get image of a specific product
+      tags:
+      - Images
+  /api/v1/suppliers:
+    get:
+      description: Retrieves all registered suppliers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of suppliers (empty if none)
+          schema:
+            items:
+              $ref: '#/definitions/dto.SupplierResponseDTO'
+            type: array
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get all suppliers
+      tags:
+      - Suppliers
+    post:
+      consumes:
+      - application/json
+      description: Creates a new appliance supplier with address
+      parameters:
+      - description: Supplier data
+        in: body
+        name: supplier
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SupplierRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.SupplierResponseDTO'
+        "400":
+          description: Validation error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Add a new supplier
+      tags:
+      - Suppliers
+  /api/v1/suppliers/{id}:
+    delete:
+      description: Deletes a supplier by its unique identifier
+      parameters:
+      - description: Supplier ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Supplier successfully deleted
+          schema:
+            $ref: '#/definitions/dto.MessageResponse'
+        "400":
+          description: Invalid UUID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Supplier not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Delete a supplier
+      tags:
+      - Suppliers
+    get:
+      description: Retrieves supplier information by ID
+      parameters:
+      - description: Supplier ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SupplierResponseDTO'
+        "400":
+          description: Invalid UUID
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Supplier not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get supplier by ID
+      tags:
+      - Suppliers
+  /api/v1/suppliers/{id}/address:
+    put:
+      consumes:
+      - application/json
+      description: Updates the address of an existing supplier
+      parameters:
+      - description: Supplier ID (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: New address data
+        in: body
+        name: address
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SupplierAddressUpdateDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SupplierResponseDTO'
+        "400":
+          description: Validation error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Supplier not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Change supplier address
+      tags:
+      - Suppliers
+swagger: "2.0"
